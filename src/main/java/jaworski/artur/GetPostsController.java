@@ -1,6 +1,7 @@
 package jaworski.artur;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,8 @@ import java.util.List;
 @Controller
 public class GetPostsController implements IGetPostsController {
 
-    protected static final String URI = "https://jsonplaceholder.typicode.com/posts";
+    @Value("${URI.posts}")
+    private String URI;
     private RestTemplate restTemplate = new RestTemplate();
 
     public List<Post> getPostsFromAPI() {
@@ -42,5 +44,9 @@ public class GetPostsController implements IGetPostsController {
 
     protected void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
+    }
+
+    protected void setURI(String URI) {
+        this.URI = URI;
     }
 }

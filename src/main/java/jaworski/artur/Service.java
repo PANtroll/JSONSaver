@@ -12,16 +12,17 @@ import java.util.List;
 @Log4j2
 public class Service implements IService {
 
-    protected IGetPostsController getPostsController;
-    protected IJSONSaver jsonSaver;
+    private IGetPostsController getPostsController;
+    private IJSONSaver jsonSaver;
 
     public void perform() {
 
         List<Post> posts = getPostsController.getPostsFromAPI();
-        if (!posts.isEmpty()) {
-            if (jsonSaver.saveToFile(posts)) {
-                log.info("All files saved successfully");
-            }
+        if (posts.isEmpty()) {
+            return;
+        }
+        if (jsonSaver.saveToFile(posts)) {
+            log.info("All files saved successfully");
         }
     }
 

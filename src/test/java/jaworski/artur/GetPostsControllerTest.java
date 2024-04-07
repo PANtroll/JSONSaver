@@ -3,23 +3,30 @@ package jaworski.artur;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static jaworski.artur.GetPostsController.URI;
 
-
+@ExtendWith({MockitoExtension.class})
 class GetPostsControllerTest {
 
-    GetPostsController cut;
+    private static final String URI = "https://jsonplaceholder.typicode.com/posts";
+    @InjectMocks
+    private GetPostsController cut;
+    @Mock
+    private RestTemplate mockedRestTemplate;
 
     @BeforeEach
     public void setup() {
-        cut = new GetPostsController();
+        cut.setURI(URI);
     }
 
     @Test
@@ -29,7 +36,6 @@ class GetPostsControllerTest {
         Long userId = 2L;
         String title = "Title";
         String body = "Test";
-        RestTemplate mockedRestTemplate = Mockito.mock();
         ResponseEntity<Post[]> response = new ResponseEntity<>(new Post[]{new Post(id, userId, title, body)}, HttpStatus.OK);
         Mockito.when(mockedRestTemplate.getForEntity(URI, Post[].class)).thenReturn(response);
         cut.setRestTemplate(mockedRestTemplate);
@@ -51,7 +57,6 @@ class GetPostsControllerTest {
         Long userId = 2L;
         String title = "Title";
         String body = "Test";
-        RestTemplate mockedRestTemplate = Mockito.mock();
         ResponseEntity<Post[]> response = new ResponseEntity<>(new Post[]{new Post(id, userId, title, body)}, HttpStatus.NOT_FOUND);
         Mockito.when(mockedRestTemplate.getForEntity(URI, Post[].class)).thenReturn(response);
         cut.setRestTemplate(mockedRestTemplate);

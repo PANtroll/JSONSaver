@@ -1,18 +1,25 @@
 package jaworski.artur;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class for create files and save date to them.
+ */
 @Log4j2
 @Component
+@RequiredArgsConstructor
 public class JSONSaver implements IJSONSaver {
-    protected static final String FILES_DICTIONARY = "src/main/resources/jaworski/artur/files/";
-    protected static final String _JSON = ".json";
+    @Value("${files.directory}")
+    private String filesDirectory;
+    private static final String _JSON = ".json";
     private int savedFiles = 0;
 
     public boolean saveToFile(List<Post> postsList) {
@@ -30,12 +37,12 @@ public class JSONSaver implements IJSONSaver {
     }
 
     private boolean ensureIsDirPresent() {
-        File file = new File(FILES_DICTIONARY);
+        File file = new File(filesDirectory);
         if (!file.isDirectory()) {
             try {
                 return file.mkdirs();
             } catch (SecurityException e) {
-                log.error("Can not create dir in: " + FILES_DICTIONARY);
+                log.error("Can not create dir in: " + filesDirectory);
                 return false;
             }
         }
@@ -49,7 +56,7 @@ public class JSONSaver implements IJSONSaver {
             return;
         }
         try {
-            File filePath = new File(FILES_DICTIONARY + post.getId() + _JSON);
+            File filePath = new File(filesDirectory + post.getId() + _JSON);
             if (!filePath.isFile()) {
                 filePath.createNewFile();
             }
@@ -62,5 +69,9 @@ public class JSONSaver implements IJSONSaver {
         } catch (Exception e) {
             log.error("Fail when saving post: " + post);
         }
+    }
+
+    protected void setFilesDirectory(String filesDirectory) {
+        this.filesDirectory = filesDirectory;
     }
 }
