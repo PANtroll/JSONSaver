@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Log4j2
 @Controller
-public class GetPostsController {
+public class GetPostsController implements IGetPostsController {
 
     protected static final String URI = "https://jsonplaceholder.typicode.com/posts";
     private RestTemplate restTemplate = new RestTemplate();

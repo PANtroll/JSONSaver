@@ -7,16 +7,19 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class Main {
-    private static Service service;
+    private static IService service;
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
-        service.perform();
-        SpringApplication.exit(context);
+        try {
+            service.perform();
+        } finally {
+            SpringApplication.exit(context);
+        }
     }
 
     @Autowired
-    public void setService(Service service) {
+    public void setService(IService service) {
         Main.service = service;
     }
 }
