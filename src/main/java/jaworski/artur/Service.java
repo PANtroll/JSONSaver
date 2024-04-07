@@ -3,6 +3,8 @@ package jaworski.artur;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * Service to do everything :)
  */
@@ -10,16 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Log4j2
 public class Service implements IService {
 
-    GetPostsController getPostsController;
-
+    protected IGetPostsController getPostsController;
+    protected IJSONSaver jsonSaver;
 
     public void perform() {
 
-        log.info(getPostsController.getPostsFromAPI());
+        List<Post> posts = getPostsController.getPostsFromAPI();
+        if (!posts.isEmpty()) {
+            if (jsonSaver.saveToFile(posts)) {
+                log.info("All files saved successfully");
+            }
+        }
     }
 
     @Autowired
-    public void setJsonGetController(GetPostsController getPostsController) {
+    protected void setGetPostsController(IGetPostsController getPostsController) {
         this.getPostsController = getPostsController;
+    }
+
+    @Autowired
+    protected void setJsonSaver(IJSONSaver jsonSaver) {
+        this.jsonSaver = jsonSaver;
     }
 }
