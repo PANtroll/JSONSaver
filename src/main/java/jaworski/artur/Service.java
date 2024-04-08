@@ -1,7 +1,7 @@
 package jaworski.artur;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -10,10 +10,11 @@ import java.util.List;
  */
 @org.springframework.stereotype.Service
 @Log4j2
+@RequiredArgsConstructor
 public class Service implements IService {
 
-    private IGetPostsController getPostsController;
-    private IJSONSaver jsonSaver;
+    private final IGetPostsController getPostsController;
+    private final IJSONSaver jsonSaver;
 
     public void perform() {
 
@@ -24,15 +25,5 @@ public class Service implements IService {
         if (jsonSaver.saveToFile(posts)) {
             log.info("All files saved successfully");
         }
-    }
-
-    @Autowired
-    protected void setGetPostsController(IGetPostsController getPostsController) {
-        this.getPostsController = getPostsController;
-    }
-
-    @Autowired
-    protected void setJsonSaver(IJSONSaver jsonSaver) {
-        this.jsonSaver = jsonSaver;
     }
 }

@@ -24,7 +24,6 @@ class ServiceTest {
 
     @BeforeEach
     public void setup() {
-        cut = new Service();
         posts.clear();
     }
 
@@ -33,9 +32,8 @@ class ServiceTest {
         //given
         posts.add(new Post(0L, 1L, "Title", "test"));
         Mockito.when(postsController.getPostsFromAPI()).thenReturn(posts);
-        cut.setGetPostsController(postsController);
         Mockito.when(jsonSaver.saveToFile(posts)).thenReturn(true);
-        cut.setJsonSaver(jsonSaver);
+        cut = new Service(postsController, jsonSaver);
         //then
         cut.perform();
         //when
@@ -47,9 +45,8 @@ class ServiceTest {
     void testPerformHappyWhenDontGetData() {
         //given
         Mockito.when(postsController.getPostsFromAPI()).thenReturn(posts);
-        cut.setGetPostsController(postsController);
         Mockito.lenient().when(jsonSaver.saveToFile(posts)).thenReturn(true);
-        cut.setJsonSaver(jsonSaver);
+        cut = new Service(postsController, jsonSaver);
         //then
         cut.perform();
         //when
