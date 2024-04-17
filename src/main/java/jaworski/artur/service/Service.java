@@ -1,5 +1,8 @@
-package jaworski.artur;
+package jaworski.artur.service;
 
+import jaworski.artur.PostsService.IGetPostsService;
+import jaworski.artur.jsonSaver.IJSONSaver;
+import jaworski.artur.to.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -13,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Service implements IService {
 
-    private final IGetPostsController getPostsController;
+    private final IGetPostsService getPostsController;
     private final IJSONSaver jsonSaver;
 
     public void perform() {

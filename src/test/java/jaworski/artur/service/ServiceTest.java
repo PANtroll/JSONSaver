@@ -1,5 +1,8 @@
-package jaworski.artur;
+package jaworski.artur.service;
 
+import jaworski.artur.PostsService.GetPostsService;
+import jaworski.artur.jsonSaver.JSONSaver;
+import jaworski.artur.to.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +21,7 @@ class ServiceTest {
     private Service cut;
     private final List<Post> posts = new ArrayList<>();
     @Mock
-    private GetPostsController postsController;
+    private GetPostsService postsController;
     @Mock
     private JSONSaver jsonSaver;
 

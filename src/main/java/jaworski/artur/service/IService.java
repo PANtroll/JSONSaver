@@ -1,4 +1,4 @@
-package jaworski.artur;
+package jaworski.artur.service;
 
 public interface IService {
 

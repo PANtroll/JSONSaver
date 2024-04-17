@@ -1,5 +1,6 @@
-package jaworski.artur;
+package jaworski.artur.jsonSaver;
 
+import jaworski.artur.to.Post;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

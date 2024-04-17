@@ -1,5 +1,6 @@
-package jaworski.artur;
+package jaworski.artur.PostsService;
 
+import jaworski.artur.to.Post;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,11 +17,11 @@ import java.util.List;
 
 
 @ExtendWith({MockitoExtension.class})
-class GetPostsControllerTest {
+class GetPostsServiceTest {
 
     private static final String URI = "https://jsonplaceholder.typicode.com/posts";
     @InjectMocks
-    private GetPostsController cut;
+    private GetPostsService cut;
     @Mock
     private RestTemplate mockedRestTemplate;
 

@@ -1,10 +1,11 @@
-package jaworski.artur;
+package jaworski.artur.jsonSaver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jaworski.artur.to.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
  * Class for create files and save date to them.
  */
 @Log4j2
-@Component
+@Service
 @RequiredArgsConstructor
 public class JSONSaver implements IJSONSaver {
     @Value("${files.directory}")

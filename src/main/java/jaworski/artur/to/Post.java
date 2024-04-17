@@ -1,4 +1,4 @@
-package jaworski.artur;
+package jaworski.artur.to;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
